@@ -10,7 +10,7 @@ const fetchTeams = () => async (dispatch, getState) => {
         dispatch({type: FETCH_TEAMS_BEGIN});
 
         // retrieve the token for this request
-        const {token} = getState().auth.user;
+        const token = getState().auth.user.token;
 
         const request = await fetch(`${BASE_URL}teams`, {
             method: 'get',
