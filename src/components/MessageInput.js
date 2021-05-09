@@ -156,13 +156,6 @@ function MessageInput({scrollToBottom}) {
                                               d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
                                     </svg>
                                 </button>
-                                {/*<button type="button"*/}
-                                {/*        className="animate-wiggle focus:outline-none"*/}
-                                {/*>*/}
-                                {/*    <p className="text-2xl">*/}
-                                {/*        👋*/}
-                                {/*    </p>*/}
-                                {/*</button>*/}
                                 <button type="button"
                                         className="inline-flex w-36 items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
                                         onClick={formik.handleSubmit}
