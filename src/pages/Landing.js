@@ -238,7 +238,7 @@ function Landing() {
                         <div
                             className="mt-12 mx-auto max-w-md px-4 grid gap-8 sm:max-w-lg sm:px-6 lg:px-8 lg:grid-cols-3 lg:max-w-7xl">
                             <div
-                                className="flex flex-col rounded-lg shadow hover:shadow-lg overflow-hidden hover:scale-110 transform transition">
+                                className="flex flex-col rounded-lg shadow sm:hover:shadow-lg overflow-hidden hover:scale-100 sm:hover:scale-110 transform transition">
                                 <div className="flex-shrink-0">
                                     <img className="h-48 w-full object-cover"
                                          src={workspace1}
@@ -294,7 +294,7 @@ function Landing() {
                             </div>
 
                             <div
-                                className="flex flex-col rounded-lg shadow hover:shadow-lg overflow-hidden hover:scale-110 transform transition">
+                                className="flex flex-col rounded-lg shadow sm:hover:shadow-lg overflow-hidden hover:scale-100 sm:hover:scale-110 transform transition">
                                 <div className="flex-shrink-0">
                                     <img className="h-48 w-full object-cover"
                                          src={workspace2}
@@ -350,7 +350,7 @@ function Landing() {
                             </div>
 
                             <div
-                                className="flex flex-col rounded-lg shadow hover:shadow-lg overflow-hidden hover:scale-110 transform transition">
+                                className="flex flex-col rounded-lg shadow sm:hover:shadow-lg overflow-hidden hover:scale-100 sm:hover:scale-110 transform transition">
                                 <div className="flex-shrink-0">
                                     <img className="h-48 w-full object-cover"
                                          src={workspace3}
