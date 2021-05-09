@@ -27,7 +27,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "cross-env PORT=3050 craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
