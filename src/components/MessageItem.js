@@ -1,5 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import Datetime from './Datetime';
 
 function MessageItem({message, index}) {
     const {user} = useSelector(state => state.auth);
@@ -26,7 +27,8 @@ function MessageItem({message, index}) {
                         ? ticket.customer.name
                         : user.name}</p>
                     <p className="mt-0.5 text-sm text-gray-500">
-                        {message.updatedAt}
+                        <Datetime date={message.created_at}
+                                  timeAgo={true}/>
                     </p>
                     <p className="mt-1 text-sm text-gray-700 whitespace-pre-wrap">
                         {message.body}</p>

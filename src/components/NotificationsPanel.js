@@ -1,13 +1,13 @@
 import React from 'react';
 import {Transition} from '@headlessui/react';
 
-function Notifications({notifications, toggleNotifications}) {
+function NotificationsPanel({notificationsPanel, toggleNotificationsPanel}) {
     return (
         <React.Fragment>
             <div className="relative inline-flex mr-4">
                 <button type="button"
                         className="inline-flex items-center text-gray-400 hover:text-gray-500 rounded-md transition ease-in-out duration-150 focus:outline-none"
-                        onClick={toggleNotifications}>
+                        onClick={toggleNotificationsPanel}>
                     <svg className="w-6 h-6" fill="none" stroke="currentColor"
                          viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">
@@ -22,14 +22,14 @@ function Notifications({notifications, toggleNotifications}) {
                 </span>
             </div>
             <Transition
-                show={notifications}
+                show={notificationsPanel}
                 className="fixed inset-0 overflow-hidden z-20"
                 aria-labelledby="slide-over-title"
                 role="dialog"
                 aria-modal="true">
                 <div className="absolute inset-0 overflow-hidden">
                     <Transition.Child
-                        show={notifications}
+                        show={notificationsPanel}
                         enter="ease-in-out duration-500"
                         enterFrom="opacity-0"
                         enterTo="opacity-100"
@@ -38,11 +38,11 @@ function Notifications({notifications, toggleNotifications}) {
                         leaveTo="opacity-0">
                         <div className="absolute inset-0 bg-gray-600 bg-opacity-75 transition-opacity"
                              aria-hidden="true"
-                             onClick={toggleNotifications}/>
+                             onClick={toggleNotificationsPanel}/>
                     </Transition.Child>
                     <div className="fixed inset-y-0 right-0 pl-10 max-w-full flex">
                         <Transition.Child
-                            show={notifications}
+                            show={notificationsPanel}
                             enter="transform transition ease-in-out duration-700"
                             enterFrom="translate-x-full"
                             enterTo="translate-x-0"
@@ -51,7 +51,7 @@ function Notifications({notifications, toggleNotifications}) {
                             leaveTo="translate-x-full">
                             <div className="relative w-screen max-w-md">
                                 <Transition.Child
-                                    show={notifications}
+                                    show={notificationsPanel}
                                     enter="ease-in-out duration-700"
                                     enterFrom="opacity-0"
                                     enterTo="opacity-100"
@@ -61,7 +61,7 @@ function Notifications({notifications, toggleNotifications}) {
                                     <div className="absolute top-0 left-0 -ml-12 pt-2 flex">
                                         <button
                                             className="flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                                            onClick={toggleNotifications}>
+                                            onClick={toggleNotificationsPanel}>
                                             <span className="sr-only">Close panel</span>
                                             <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg"
                                                  fill="none"
@@ -81,9 +81,7 @@ function Notifications({notifications, toggleNotifications}) {
                                         <div className="mt-6 relative flex-1 px-4 sm:px-6">
                                             <div className="absolute inset-0 px-4 sm:px-6">
                                                 <div className="h-full border-2 border-dashed border-gray-200"
-                                                     aria-hidden="true">
-
-                                                </div>
+                                                     aria-hidden="true"/>
                                             </div>
                                         </div>
                                     </div>
@@ -93,9 +91,8 @@ function Notifications({notifications, toggleNotifications}) {
                     </div>
                 </div>
             </Transition>
-            {/*<Alert/>*/}
         </React.Fragment>
     );
 }
 
-export default Notifications;
+export default NotificationsPanel;

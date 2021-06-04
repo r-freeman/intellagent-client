@@ -7,12 +7,15 @@ import {Sidebar, TicketPanel, MessagePanel, UserMenu} from '../components';
 
 function Ticket() {
     const {isLoggedIn} = useSelector(state => state.auth);
-    const {ticket} = useSelector(state => state.tickets);
+    const {ticket, tickets} = useSelector(state => state.tickets);
     const [sidebar, setSidebar] = useState(false);
     const dispatch = useDispatch();
-
     let {reference} = useParams();
     let history = useHistory();
+
+    useEffect(() => {
+        document.title = `Ticket #${ticket.reference}`;
+    }, [ticket]);
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -21,11 +24,10 @@ function Ticket() {
     }, [isLoggedIn, history]);
 
     useEffect(() => {
-        dispatch(actions.tickets.findTicket(reference));
-    }, [dispatch, reference]);
+        dispatch(actions.tickets.fetchTicket(reference));
+    }, [tickets]);
 
     const toggleSidebar = () => setSidebar(!sidebar);
-
     const hasTicket = (Object.keys(ticket).length > 0 && typeof ticket.customer !== 'undefined');
 
     return (

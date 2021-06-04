@@ -1,25 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Transition} from '@headlessui/react';
-
-import actions from '../redux/actions';
-
 import {Sidebar, TicketTable, UserMenu} from '../components';
 
 function Tickets() {
     const {isLoggedIn} = useSelector(state => state.auth);
-    const {tickets} = useSelector(state => state.tickets);
-    const [actionButton, setActionButton] = useState(false);
     const [sidebar, setSidebar] = useState(false);
-    const dispatch = useDispatch();
     let history = useHistory();
 
     useEffect(() => {
-        if (tickets.length === 0) {
-            dispatch(actions.tickets.fetchTickets());
-        }
-    }, [dispatch, tickets]);
+        document.title = 'Tickets';
+    }, []);
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -29,7 +21,6 @@ function Tickets() {
     }, [isLoggedIn, history]);
 
     const toggleSidebar = () => setSidebar(!sidebar);
-    const toggleActionButton = () => setActionButton(!actionButton);
 
     return (
         <div className="h-screen flex overflow-hidden bg-white">
@@ -57,10 +48,6 @@ function Tickets() {
                                                     aria-current="page">
                                                 All
                                             </button>
-                                            {/*<button type="button"*/}
-                                            {/*        className="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">*/}
-                                            {/*    Unassigned*/}
-                                            {/*</button>*/}
                                             <button type="button"
                                                     className="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
                                                 Open
@@ -93,23 +80,8 @@ function Tickets() {
                                     </div>
                                 </div>
                                 <div className="relative inline-block text-left">
-                                    <div>
-                                        <button type="button"
-                                                className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-400"
-                                                id="options-menu" aria-haspopup="true" aria-expanded="true"
-                                                onBlur={() => setActionButton(false)}
-                                                onClick={() => toggleActionButton()}>
-                                            None selected
-                                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg"
-                                                 viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                <path fillRule="evenodd"
-                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                      clipRule="evenodd"/>
-                                            </svg>
-                                        </button>
-                                    </div>
                                     <Transition
-                                        show={actionButton}
+                                        show={false}
                                         enter="transition ease-out duration-100"
                                         enterFrom="transform opacity-0 scale-95"
                                         enterTo="transform opacity-100 scale-100"

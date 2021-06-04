@@ -1,10 +1,9 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
+import Datetime from './Datetime';
 
 function TicketItem({ticket}) {
     let history = useHistory();
-
-    const dateString = (date) => new Date(date).toDateString();
 
     return (
         <tr>
@@ -19,8 +18,8 @@ function TicketItem({ticket}) {
                     className={`${ticket.status === 'unassigned'
                         ? 'bg-red-100 text-red-800'
                         : ticket.status === 'open'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-green-100 text-green-800'} px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize`}>
+                            ? 'bg-blue-400 text-white'
+                            : 'bg-green-400 text-white'} inline-flex px-2 py-0.5 text-sm leading-5 font-medium rounded-full capitalize`}>
                     {ticket.status}
                 </p>
             </td>
@@ -48,22 +47,31 @@ function TicketItem({ticket}) {
                     </div>
                 </div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap cursor-pointer"
+            <td className="px-6 py-4 whitespace-nowrap">
+                <p className="text-sm text-gray-500 capitalize">
+                    {ticket.issue_type.name}
+                </p>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap cursor-pointer max-w-md"
                 onClick={() => history.push(`/tickets/${ticket.reference}`)}>
                 <p
-                    className={`${ticket.messages[ticket.messages.length - 1].read !== true ? 'font-semibold' : ''} text-sm text-gray-900`}>
-                    {`${ticket.messages[ticket.messages.length - 1].body.substring(0, 80)}...`}
-                </p>
-            </td>
-
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <p className="text-sm text-gray-500">
-                    {dateString(ticket.createdAt)}
+                    className={`${ticket.messages[ticket.messages.length - 1].read !== true
+                        ? 'font-semibold'
+                        : ''} text-sm text-gray-900 truncate`}>
+                    {ticket.messages[ticket.messages.length - 1].body}
                 </p>
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <p className="text-sm text-gray-500">
-                    {dateString(ticket.updatedAt)}
+                    <Datetime
+                        date={ticket.created_at}/>
+                </p>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <p className="text-sm text-gray-500">
+                    <Datetime
+                        date={ticket.updated_at}
+                        timeAgo={true}/>
                 </p>
             </td>
         </tr>

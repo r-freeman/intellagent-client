@@ -4,22 +4,22 @@ import {NavLink, useHistory} from 'react-router-dom';
 import actions from '../redux/actions';
 import {Transition} from '@headlessui/react';
 
-import Notifications from './Notifications';
+import NotificationsPanel from './NotificationsPanel';
 
 function UserMenu({toggleSidebar}) {
+    const [userMenu, setUserMenu] = useState(false);
+    const [notificationsPanel, setNotificationsPanel] = useState(false);
     const {user} = useSelector(state => state.auth);
     const dispatch = useDispatch();
-    const [userMenu, setUserMenu] = useState(false);
-    const [notifications, setNotifications] = useState(false);
     let history = useHistory();
 
-    const handleLogout = function () {
+    const handleLogout = () => {
         dispatch(actions.auth.logout());
         history.push('/');
     }
 
     const toggleUserMenu = () => setUserMenu(!userMenu);
-    const toggleNotifications = () => setNotifications(!notifications);
+    const toggleNotificationsPanel = () => setNotificationsPanel(!notificationsPanel);
 
     return (
         <React.Fragment>
@@ -28,9 +28,9 @@ function UserMenu({toggleSidebar}) {
                 <div className="lg:flex justify-end w-full hidden">
                     <div className="relative inline-block text-left z-10">
                         <div className="inline-flex items-center">
-                            <Notifications
-                                notifications={notifications}
-                                toggleNotifications={toggleNotifications}
+                            <NotificationsPanel
+                                notificationsPanel={notificationsPanel}
+                                toggleNotificationsPanel={toggleNotificationsPanel}
                             />
                             <button type="button"
                                     onBlur={() => setUserMenu(false)}
@@ -99,9 +99,9 @@ function UserMenu({toggleSidebar}) {
                         <div className="w-full flex md:ml-0"/>
                     </div>
                     <div className="flex items-center">
-                        <Notifications
-                            notifications={notifications}
-                            toggleNotifications={toggleNotifications}
+                        <NotificationsPanel
+                            notificationsPanel={notificationsPanel}
+                            toggleNotificationsPanel={toggleNotificationsPanel}
                         />
                         <div className="relative">
                             <div>

@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^12.1.10",
     "autoprefixer": "^9.8.6",
     "cross-env": "^7.0.3",
+    "date-fns": "^2.22.1",
     "formik": "^2.2.6",
     "postcss": "^7.0.35",
     "react": "^17.0.1",
@@ -23,11 +24,12 @@
     "react-scripts": "4.0.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "socket.io-client": "^4.0.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "cross-env PORT=3050 craco start",
+    "start": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"

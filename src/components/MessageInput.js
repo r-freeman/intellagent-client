@@ -3,13 +3,14 @@ import {useFormik} from 'formik';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from '../redux/actions';
 
-function MessageInput({scrollToBottom}) {
+function MessageInput() {
     const [status, setStatus] = useState("");
     const {user} = useSelector(state => state.auth);
-    const {isCreatingMessage} = useSelector(state => state.tickets);
+    const {isCreatingMessage, ticket} = useSelector(state => state.tickets);
     const dispatch = useDispatch();
 
     const messageLength = () => formik.values.message.length;
+    const isClosed = ticket.status === 'closed';
 
     const validate = values => {
         const errors = {};
@@ -30,8 +31,12 @@ function MessageInput({scrollToBottom}) {
             dispatch(actions.tickets.createMessage(values.message))
                 .then(status => {
                     formik.resetForm();
-                    scrollToBottom();
-                    setStatus(status);
+                    dispatch(actions.notifications.create({
+                        status: "success",
+                        title: "Message sent",
+                        message: status
+                    }));
+                    // setStatus(status);
                 }).catch(err => {
                 console.log(err);
             });
@@ -62,10 +67,11 @@ function MessageInput({scrollToBottom}) {
                                       className={`${formik.errors.message
                                           ? 'border-red-500'
                                           : 'border-gray-300'} shadow-sm w-full block focus:ring-blue-400 focus:border-blue-400 text-sm rounded-md`}
-                                      placeholder="Write a message."
+                                      placeholder={`${isClosed ? 'Ticket is closed.' : 'Write a message.'}`}
                                       onChange={onChange}
                                       value={formik.values.message}
                                       maxLength={10000}
+                                      disabled={isClosed}
                             />
                             {(status && formik.isValid) &&
                             <div className="flex justify-start sm:hidden my-4">
@@ -109,14 +115,10 @@ function MessageInput({scrollToBottom}) {
                             <div className="hidden sm:flex sm:justify-start items-center">
                                 <div
                                     className="inline-flex items-center text-green-500">
-                                    <svg className="w-6 h-6 mr-2" fill="none"
-                                         stroke="currentColor"
-                                         viewBox="0 0 24 24"
+                                    <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                          xmlns="http://www.w3.org/2000/svg">
-                                        <path strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                              strokeWidth="2"
-                                              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                     <p className="text-sm font-medium">{status}</p>
                                 </div>
@@ -159,7 +161,7 @@ function MessageInput({scrollToBottom}) {
                                 <button type="button"
                                         className="inline-flex w-36 items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
                                         onClick={formik.handleSubmit}
-                                        disabled={isCreatingMessage}>
+                                        disabled={isCreatingMessage || isClosed}>
                                     {isCreatingMessage
                                         ? <svg
                                             className="animate-spin inline-flex h-5 w-5 text-white"

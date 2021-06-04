@@ -10,6 +10,10 @@ function Dashboard() {
     let history = useHistory();
 
     useEffect(() => {
+        document.title = 'Dashboard';
+    }, []);
+
+    useEffect(() => {
         if (!isLoggedIn) {
             // redirect unauthenticated users
             history.push('/login');
