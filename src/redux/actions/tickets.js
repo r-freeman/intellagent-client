@@ -92,10 +92,10 @@ const closeTicket = () => async (dispatch, getState) => {
                     newTickets.splice(ticketIndex, 1, ticket);
 
                     dispatch({type: CLOSE_TICKET_SUCCESS, payload: {tickets: newTickets, ticket}});
-                    resolve("Ticket closed successfully.");
+                    resolve(`Ticket #${ticket.reference} was closed successfully.`);
                 } else {
                     dispatch({type: CLOSE_TICKET_FAILURE})
-                    reject("Something went wrong");
+                    reject("Could not close ticket, please try again.");
                 }
             })).catch(err => {
             dispatch({type: CLOSE_TICKET_FAILURE})

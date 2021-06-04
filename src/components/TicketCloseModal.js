@@ -9,10 +9,18 @@ function TicketCloseModal({toggleCloseModal}) {
     const handleClose = async () => {
         dispatch(actions.tickets.closeTicket())
             .then(status => {
-                console.log(status);
+                dispatch(actions.notifications.create({
+                    status: "success",
+                    title: "Ticket closed",
+                    message: status
+                }));
                 toggleCloseModal();
             }).catch(err => {
-            console.log(err);
+            dispatch(actions.notifications.create({
+                status: "error",
+                title: "Error",
+                message: err
+            }));
         });
     };
 
