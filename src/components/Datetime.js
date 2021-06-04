@@ -18,7 +18,7 @@ function Datetime({date, timeAgo = false}) {
                 clearInterval(interval);
             }
         }
-    }, []);
+    }, [timeAgo, date]);
 
     return (
         <time dateTime={date}>

@@ -25,7 +25,7 @@ function Ticket() {
 
     useEffect(() => {
         dispatch(actions.tickets.fetchTicket(reference));
-    }, [tickets]);
+    }, [tickets, dispatch, reference]);
 
     const toggleSidebar = () => setSidebar(!sidebar);
     const hasTicket = (Object.keys(ticket).length > 0 && typeof ticket.customer !== 'undefined');

@@ -16,13 +16,13 @@ function App() {
         if (!isLoggedIn) {
             dispatch(actions.auth.fetchUser());
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, dispatch]);
 
     useEffect(() => {
         if (isLoggedIn) {
             dispatch(actions.tickets.fetchTickets());
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, dispatch]);
 
     return (
         <div className="App">
