@@ -1,4 +1,4 @@
-![Intellagent hero](https://ryanfreeman.dev/wordpress/wp-content/uploads/2021/06/Intellagent-hero.jpeg)
+[![Intellagent hero](https://ryanfreeman.dev/wordpress/wp-content/uploads/2021/06/Intellagent-hero.jpeg)](https://intellagent.help)
 
 # Intellagent
 
