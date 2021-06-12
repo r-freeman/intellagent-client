@@ -27,8 +27,7 @@ function MessageItem({message, index}) {
                         ? ticket.customer.name
                         : user.name}</p>
                     <p className="mt-0.5 text-sm text-gray-500">
-                        <Datetime date={message.created_at}
-                                  timeAgo={true}/>
+                        <Datetime date={message.created_at}/>
                     </p>
                     <p className="mt-1 text-sm text-gray-700 whitespace-pre-wrap">
                         {message.body}</p>

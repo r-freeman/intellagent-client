@@ -70,8 +70,7 @@ function TicketItem({ticket}) {
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <p className="text-sm text-gray-500">
                     <Datetime
-                        date={ticket.updated_at}
-                        timeAgo={true}/>
+                        date={ticket.updated_at}/>
                 </p>
             </td>
         </tr>
