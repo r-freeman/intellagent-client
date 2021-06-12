@@ -6,6 +6,8 @@ import TicketItem from './TicketItem';
 function TicketTable() {
     const {tickets} = useSelector(state => state.tickets);
 
+    const sortedTickets = tickets.sort((a, b) => Number(new Date(b.updated_at)) - Number(new Date(a.updated_at)));
+
     return (
         <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -46,10 +48,12 @@ function TicketTable() {
             </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-            {tickets.length > 0 ?
-                tickets.map(ticket => {
+            {sortedTickets.length > 0 ?
+                sortedTickets.map(ticket => {
                     return (
-                        <TicketItem key={ticket._id} ticket={ticket}/>
+                        <TicketItem
+                            key={ticket._id}
+                            ticket={ticket}/>
                     )
                 })
                 :
