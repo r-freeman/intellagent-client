@@ -19,7 +19,8 @@ const initialState = {
     ticket: {},
     isFetchingTickets: false,
     isCreatingMessage: false,
-    isClosingTicket: false
+    isClosingTicket: false,
+    isTicketOpen: false
 };
 
 const tickets = (state = initialState, action) => {
@@ -31,7 +32,7 @@ const tickets = (state = initialState, action) => {
         case FETCH_TICKETS_FAILURE:
             return initialState;
         case FETCH_TICKET_SUCCESS:
-            return {...state, ticket: action.payload};
+            return {...state, ticket: action.payload.ticket, isTicketOpen: action.payload.isTicketOpen};
         case FETCH_TICKET_FAILURE:
             return {...state, ticket: {}};
         case UPDATE_TICKET_SUCCESS:
@@ -47,7 +48,7 @@ const tickets = (state = initialState, action) => {
         case CLOSE_TICKET_BEGIN:
             return {...state, isClosingTicket: true};
         case CLOSE_TICKET_SUCCESS:
-            return {...state, isClosingTicket: false};
+            return {...state, isClosingTicket: false, isTicketOpen: false};
         case CLOSE_TICKET_FAILURE:
             return {...state, isClosingTicket: false};
         default:

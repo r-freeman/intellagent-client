@@ -6,11 +6,10 @@ import actions from '../redux/actions';
 function MessageInput() {
     const [status, setStatus] = useState("");
     const {user} = useSelector(state => state.auth);
-    const {isCreatingMessage, ticket} = useSelector(state => state.tickets);
+    const {isCreatingMessage, isTicketOpen} = useSelector(state => state.tickets);
     const dispatch = useDispatch();
 
     const messageLength = () => formik.values.message.length;
-    const isClosed = ticket.status === 'closed';
 
     const validate = values => {
         const errors = {};
@@ -67,11 +66,11 @@ function MessageInput() {
                                       className={`${formik.errors.message
                                           ? 'border-red-500'
                                           : 'border-gray-300'} shadow-sm w-full block focus:ring-blue-400 focus:border-blue-400 text-sm rounded-md`}
-                                      placeholder={`${isClosed ? 'Ticket is closed.' : 'Write a message.'}`}
+                                      placeholder={`${!isTicketOpen ? 'Ticket is closed.' : 'Write a message.'}`}
                                       onChange={onChange}
                                       value={formik.values.message}
                                       maxLength={10000}
-                                      disabled={isClosed}
+                                      disabled={!isTicketOpen}
                             />
                             {(status && formik.isValid) &&
                             <div className="flex justify-start sm:hidden my-4">
@@ -159,9 +158,11 @@ function MessageInput() {
                                     </svg>
                                 </button>
                                 <button type="button"
-                                        className="inline-flex w-36 items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
+                                        className={`${isTicketOpen
+                                            ? 'bg-blue-500 hover:bg-blue-600'
+                                            : 'bg-blue-400'} inline-flex w-36 items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400`}
                                         onClick={formik.handleSubmit}
-                                        disabled={isCreatingMessage || isClosed}>
+                                        disabled={isCreatingMessage || !isTicketOpen}>
                                     {isCreatingMessage
                                         ? <svg
                                             className="animate-spin inline-flex h-5 w-5 text-white"

@@ -45,7 +45,7 @@ const fetchTicket = (reference) => (dispatch, getState) => {
     const ticket = getState().tickets.tickets.find(ticket => ticket.reference === reference);
 
     if (typeof ticket !== 'undefined') {
-        dispatch({type: FETCH_TICKET_SUCCESS, payload: ticket});
+        dispatch({type: FETCH_TICKET_SUCCESS, payload: {ticket, isTicketOpen: ticket.status === 'open'}});
     } else {
         dispatch({type: FETCH_TICKET_FAILURE});
     }
