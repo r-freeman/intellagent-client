@@ -126,13 +126,13 @@ const createMessage = (text) => (dispatch, getState) => {
         }).then(response => response.json()
             .then(res => {
                 if (response.status === 201) {
-                    const message = res;
+                    const ticket = res;
                     const ticketIndex = tickets.findIndex(t => t._id === ticket._id);
                     const newTickets = tickets;
 
-                    newTickets[ticketIndex].messages.push(message);
+                    newTickets.splice(ticketIndex, 1, ticket);
 
-                    dispatch({type: CREATE_MESSAGE_SUCCESS, payload: newTickets});
+                    dispatch({type: CREATE_MESSAGE_SUCCESS, payload: {tickets: newTickets, ticket}});
                     resolve("Message sent successfully.");
                 } else {
                     dispatch({type: CREATE_MESSAGE_FAILURE})
