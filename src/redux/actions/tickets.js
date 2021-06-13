@@ -70,7 +70,7 @@ const closeTicket = () => async (dispatch, getState) => {
         dispatch({type: CLOSE_TICKET_BEGIN});
 
         const token = getState().auth.user.token;
-        const {ticket, tickets} = getState().tickets;
+        const {ticket} = getState().tickets;
 
         fetch(`${BASE_URL}tickets/${ticket._id}/status`, {
             method: 'put',
@@ -85,13 +85,8 @@ const closeTicket = () => async (dispatch, getState) => {
         }).then(response => response.json()
             .then(res => {
                 if (response.status === 200) {
-                    const ticket = res;
-                    const ticketIndex = tickets.findIndex(t => t._id === ticket._id);
-                    const newTickets = tickets;
-
-                    newTickets.splice(ticketIndex, 1, ticket);
-
-                    dispatch({type: CLOSE_TICKET_SUCCESS, payload: {tickets: newTickets, ticket}});
+                    dispatch(updateTicket(res));
+                    dispatch({type: CLOSE_TICKET_SUCCESS});
                     resolve(`Ticket #${ticket.reference} was closed successfully.`);
                 } else {
                     dispatch({type: CLOSE_TICKET_FAILURE})
@@ -109,7 +104,7 @@ const createMessage = (text) => (dispatch, getState) => {
         dispatch({type: CREATE_MESSAGE_BEGIN});
 
         const token = getState().auth.user.token;
-        const {ticket, tickets} = getState().tickets;
+        const {ticket} = getState().tickets;
 
         fetch(`${BASE_URL}tickets/${ticket._id}/messages`, {
             method: 'post',
@@ -126,13 +121,8 @@ const createMessage = (text) => (dispatch, getState) => {
         }).then(response => response.json()
             .then(res => {
                 if (response.status === 201) {
-                    const ticket = res;
-                    const ticketIndex = tickets.findIndex(t => t._id === ticket._id);
-                    const newTickets = tickets;
-
-                    newTickets.splice(ticketIndex, 1, ticket);
-
-                    dispatch({type: CREATE_MESSAGE_SUCCESS, payload: {tickets: newTickets, ticket}});
+                    dispatch(updateTicket(res));
+                    dispatch({type: CREATE_MESSAGE_SUCCESS});
                     resolve("Message sent successfully.");
                 } else {
                     dispatch({type: CREATE_MESSAGE_FAILURE})

@@ -41,18 +41,13 @@ const tickets = (state = initialState, action) => {
         case CREATE_MESSAGE_BEGIN:
             return {...state, isCreatingMessage: true};
         case CREATE_MESSAGE_SUCCESS:
-            return {...state, tickets: action.payload.tickets, ticket: action.payload.ticket, isCreatingMessage: false};
+            return {...state, isCreatingMessage: false};
         case CREATE_MESSAGE_FAILURE:
             return {...state, isCreatingMessage: false};
         case CLOSE_TICKET_BEGIN:
             return {...state, isClosingTicket: true};
         case CLOSE_TICKET_SUCCESS:
-            return {
-                ...state,
-                tickets: action.payload.tickets,
-                ticket: action.payload.ticket,
-                isClosingTicket: false
-            };
+            return {...state, isClosingTicket: false};
         case CLOSE_TICKET_FAILURE:
             return {...state, isClosingTicket: false};
         default:
