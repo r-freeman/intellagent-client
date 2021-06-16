@@ -13,6 +13,7 @@ import {
     CLOSE_TICKET_BEGIN,
     CLOSE_TICKET_SUCCESS,
     CLOSE_TICKET_FAILURE,
+    SET_TICKET_FILTER,
 } from '../types';
 
 const fetchTickets = () => async (dispatch, getState) => {
@@ -135,10 +136,15 @@ const createMessage = (text) => (dispatch, getState) => {
     });
 };
 
+const setTicketFilter = (status) => (dispatch) => {
+    dispatch({type: SET_TICKET_FILTER, payload: status});
+};
+
 export const tickets = {
     fetchTickets,
     fetchTicket,
     updateTicket,
     closeTicket,
-    createMessage
+    createMessage,
+    setTicketFilter
 };

@@ -11,7 +11,8 @@ import {
     CREATE_MESSAGE_FAILURE,
     CLOSE_TICKET_BEGIN,
     CLOSE_TICKET_SUCCESS,
-    CLOSE_TICKET_FAILURE
+    CLOSE_TICKET_FAILURE,
+    SET_TICKET_FILTER
 } from '../types';
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
     isFetchingTickets: false,
     isCreatingMessage: false,
     isClosingTicket: false,
-    isTicketOpen: false
+    isTicketOpen: false,
+    filter: 'all'
 };
 
 const tickets = (state = initialState, action) => {
@@ -51,6 +53,8 @@ const tickets = (state = initialState, action) => {
             return {...state, isClosingTicket: false, isTicketOpen: false};
         case CLOSE_TICKET_FAILURE:
             return {...state, isClosingTicket: false};
+        case SET_TICKET_FILTER:
+            return {...state, filter: action.payload};
         default:
             return state;
     }

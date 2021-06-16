@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {Transition} from '@headlessui/react';
-import {Sidebar, TicketTable, UserMenu} from '../components';
+import {Sidebar, TicketFilter, TicketTable, UserMenu} from '../components';
 
 function Tickets() {
     const {isLoggedIn} = useSelector(state => state.auth);
@@ -40,24 +39,7 @@ function Tickets() {
                                     <h1 className="text-xl leading-6 font-medium text-gray-900">
                                         Tickets
                                     </h1>
-                                    <div className="mt-12">
-                                        <nav className="space-x-8">
-                                            {/*// <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->*/}
-                                            <button type="button"
-                                                    className="border-blue-500 text-blue-500 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm"
-                                                    aria-current="page">
-                                                All
-                                            </button>
-                                            <button type="button"
-                                                    className="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                                                Open
-                                            </button>
-                                            <button type="button"
-                                                    className="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
-                                                Closed
-                                            </button>
-                                        </nav>
-                                    </div>
+                                    <TicketFilter/>
                                 </div>
                             </div>
                             <div className="flex justify-between items-center">
@@ -78,51 +60,6 @@ function Tickets() {
                                                className="appearance-none block w-full sm:w-64 pl-10 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-400 focus:border-blue-400 sm:text-sm"
                                                placeholder="Search"/>
                                     </div>
-                                </div>
-                                <div className="relative inline-block text-left">
-                                    <Transition
-                                        show={false}
-                                        enter="transition ease-out duration-100"
-                                        enterFrom="transform opacity-0 scale-95"
-                                        enterTo="transform opacity-100 scale-100"
-                                        leave="transition ease-in duration-75"
-                                        leaveFrom="transform opacity-100 scale-100"
-                                        leaveTo="transform opacity-0 scale-95"
-                                    >
-                                        <div
-                                            className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100"
-                                            role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                            <div className="py-1">
-                                                <a href="/"
-                                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                                   role="menuitem">Edit</a>
-                                                <a href="/"
-                                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                                   role="menuitem">Duplicate</a>
-                                            </div>
-                                            <div className="py-1">
-                                                <a href="/"
-                                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                                   role="menuitem">Archive</a>
-                                                <a href="/"
-                                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                                   role="menuitem">Move</a>
-                                            </div>
-                                            <div className="py-1">
-                                                <a href="/"
-                                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                                   role="menuitem">Share</a>
-                                                <a href="/"
-                                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                                   role="menuitem">Add to favorites</a>
-                                            </div>
-                                            <div className="py-1">
-                                                <a href="/"
-                                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                                   role="menuitem">Delete</a>
-                                            </div>
-                                        </div>
-                                    </Transition>
                                 </div>
                             </div>
                             <div className="flex flex-col">

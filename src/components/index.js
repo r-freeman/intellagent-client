@@ -12,6 +12,7 @@ import Sidebar from './Sidebar';
 import TeamItem from './TeamItem';
 import TeamList from './TeamList';
 import TicketCloseModal from './TicketCloseModal';
+import TicketFilter from './TicketFilter';
 import TicketItem from './TicketItem';
 import TicketPanel from './TicketPanel';
 import TicketTable from './TicketTable';
@@ -32,6 +33,7 @@ export {
     TeamItem,
     TeamList,
     TicketCloseModal,
+    TicketFilter,
     TicketItem,
     TicketTable,
     TicketPanel,

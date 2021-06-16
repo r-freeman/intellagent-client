@@ -5,8 +5,10 @@ import TicketItem from './TicketItem';
 
 function TicketTable() {
     const {tickets} = useSelector(state => state.tickets);
+    const {filter} = useSelector(state => state.tickets);
 
     const sortedTickets = tickets.sort((a, b) => Number(new Date(b.updated_at)) - Number(new Date(a.updated_at)));
+    const filteredTickets = filter === 'all' ? sortedTickets : sortedTickets.filter(ticket => ticket.status === filter);
 
     return (
         <table className="min-w-full divide-y divide-gray-200">
@@ -48,8 +50,8 @@ function TicketTable() {
             </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-            {sortedTickets.length > 0 ?
-                sortedTickets.map(ticket => {
+            {filteredTickets.length > 0 ?
+                filteredTickets.map(ticket => {
                     return (
                         <TicketItem
                             key={ticket._id}
@@ -61,7 +63,7 @@ function TicketTable() {
                     <td className="px-6 py-4 whitespace-nowrap" colSpan="6">
                         <div
                             className="text-sm text-gray-500">
-                            No tickets
+                            No tickets.
                         </div>
                     </td>
                 </tr>
