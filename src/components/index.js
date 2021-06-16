@@ -10,6 +10,7 @@ import NotificationList from './NotificationList';
 import NotificationsPanel from './NotificationsPanel';
 import Sidebar from './Sidebar';
 import TeamItem from './TeamItem';
+import TeamItemSkeleton from './TeamItemSkeleton';
 import TeamList from './TeamList';
 import TicketCloseModal from './TicketCloseModal';
 import TicketFilter from './TicketFilter';
@@ -31,11 +32,12 @@ export {
     NotificationsPanel,
     Sidebar,
     TeamItem,
+    TeamItemSkeleton,
     TeamList,
     TicketCloseModal,
     TicketFilter,
     TicketItem,
-    TicketTable,
     TicketPanel,
+    TicketTable,
     UserMenu
 };

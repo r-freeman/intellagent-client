@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from '../redux/actions';
 import TeamItem from './TeamItem';
+import TeamItemSkeleton from './TeamItemSkeleton';
 
 function TeamList() {
     const {teams} = useSelector(state => state.teams);
@@ -19,15 +20,23 @@ function TeamList() {
                 id="teams-headline">
                 Teams
             </h3>
-            <div className="mt-1 space-y-1" role="group" aria-labelledby="teams-headline">
-                {teams.map(team => {
-                    return (
-                        <TeamItem
-                            key={team._id}
-                            team={team}
-                        />
-                    )
-                })}
+            <div className="mt-1" role="group" aria-labelledby="teams-headline">
+                {teams.length > 0
+                    ? teams.map(team => {
+                        return (
+                            <TeamItem
+                                key={team._id}
+                                team={team}
+                            />
+                        )
+                    })
+                    :
+                    <>
+                        <TeamItemSkeleton/>
+                        <TeamItemSkeleton/>
+                        <TeamItemSkeleton/>
+                    </>
+                }
             </div>
         </div>
     )
