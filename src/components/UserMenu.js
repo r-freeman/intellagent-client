@@ -31,6 +31,7 @@ function UserMenu({toggleSidebar}) {
                             <NotificationsPanel
                                 notificationsPanel={notificationsPanel}
                                 toggleNotificationsPanel={toggleNotificationsPanel}
+                                setNotificationsPanel={setNotificationsPanel}
                             />
                             <button type="button"
                                     onBlur={() => setUserMenu(false)}

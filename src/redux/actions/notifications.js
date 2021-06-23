@@ -6,7 +6,10 @@ import {
     FETCH_NOTIFICATIONS_FAILURE,
     DELETE_NOTIFICATION_BEGIN,
     DELETE_NOTIFICATION_SUCCESS,
-    DELETE_NOTIFICATION_FAILURE
+    DELETE_NOTIFICATION_FAILURE,
+    DELETE_NOTIFICATIONS_BEGIN,
+    DELETE_NOTIFICATIONS_SUCCESS,
+    DELETE_NOTIFICATIONS_FAILURE
 } from '../types';
 
 import {BASE_URL} from '../../api';
@@ -90,4 +93,29 @@ const deleteNotification = (id) => async (dispatch, getState) => {
     }
 };
 
-export const notifications = {create, dismiss, fetchNotifications, deleteNotification};
+const deleteNotifications = () => async (dispatch, getState) => {
+    try {
+        dispatch({type: DELETE_NOTIFICATIONS_BEGIN});
+
+        const token = getState().auth.user.token;
+
+        const request = await fetch(`${BASE_URL}notifications`, {
+            method: 'delete',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (request.status === 204) {
+            dispatch({type: DELETE_NOTIFICATIONS_SUCCESS, payload: []});
+        } else {
+            dispatch({type: DELETE_NOTIFICATIONS_FAILURE});
+        }
+    } catch (err) {
+        console.log(err);
+        dispatch({type: DELETE_NOTIFICATIONS_FAILURE});
+    }
+};
+
+export const notifications = {create, dismiss, fetchNotifications, deleteNotification, deleteNotifications};

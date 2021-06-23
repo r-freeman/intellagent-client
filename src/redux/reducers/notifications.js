@@ -6,14 +6,18 @@ import {
     FETCH_NOTIFICATIONS_FAILURE,
     DELETE_NOTIFICATION_BEGIN,
     DELETE_NOTIFICATION_SUCCESS,
-    DELETE_NOTIFICATION_FAILURE
+    DELETE_NOTIFICATION_FAILURE,
+    DELETE_NOTIFICATIONS_BEGIN,
+    DELETE_NOTIFICATIONS_SUCCESS,
+    DELETE_NOTIFICATIONS_FAILURE
 } from '../types';
 
 const initialState = {
     localNotifications: [],
     notifications: [],
     isFetchingNotifications: false,
-    isDeletingNotification: false
+    isDeletingNotification: false,
+    isDeletingNotifications: false
 };
 
 const notifications = (state = initialState, action) => {
@@ -33,7 +37,13 @@ const notifications = (state = initialState, action) => {
         case DELETE_NOTIFICATION_SUCCESS:
             return {...state, notifications: action.payload, isDeletingNotification: false};
         case DELETE_NOTIFICATION_FAILURE:
-            return {...state, isDeletingNotification: false}
+            return {...state, isDeletingNotification: false};
+        case DELETE_NOTIFICATIONS_BEGIN:
+            return {...state, isDeletingNotifications: true};
+        case DELETE_NOTIFICATIONS_SUCCESS:
+            return {...state, notifications: action.payload, isDeletingNotifications: false};
+        case DELETE_NOTIFICATIONS_FAILURE:
+            return {...state, isDeletingNotifications: false};
         default:
             return state;
     }
