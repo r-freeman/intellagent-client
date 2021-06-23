@@ -16,19 +16,13 @@ function EventBus() {
         switch (event) {
             case TICKET_ASSIGNED:
                 await dispatch(actions.tickets.fetchTickets());
-                dispatch(actions.notifications.create({
-                    status: "info",
-                    title: "New ticket",
-                    message: "A new ticket was assigned to you."
-                }));
+                await dispatch(actions.notifications.fetchNotifications());
+                dispatch(actions.notifications.create(payload.notification));
                 break;
             case TICKET_NEW_MESSAGE:
-                dispatch(actions.tickets.updateTicket(payload));
-                dispatch(actions.notifications.create({
-                    status: "info",
-                    title: "New message",
-                    message: `New message from ${payload.customer.name}.`
-                }));
+                dispatch(actions.tickets.updateTicket(payload.ticket));
+                await dispatch(actions.notifications.fetchNotifications());
+                dispatch(actions.notifications.create(payload.notification));
                 break;
             default:
                 return;
@@ -43,8 +37,8 @@ function EventBus() {
         });
 
         // set up socket listeners
-        socket.on(TICKET_ASSIGNED, (ticket) => handleEvent(TICKET_ASSIGNED, ticket));
-        socket.on(TICKET_NEW_MESSAGE, (ticket) => handleEvent(TICKET_NEW_MESSAGE, ticket));
+        socket.on(TICKET_ASSIGNED, (payload) => handleEvent(TICKET_ASSIGNED, payload));
+        socket.on(TICKET_NEW_MESSAGE, (payload) => handleEvent(TICKET_NEW_MESSAGE, payload));
 
         return () => {
             // clean up socket listeners

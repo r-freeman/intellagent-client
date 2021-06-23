@@ -24,6 +24,22 @@ function App() {
         }
     }, [isLoggedIn, dispatch]);
 
+    useEffect(() => {
+        if (isLoggedIn) {
+            async function fetchNotifications() {
+                await dispatch(actions.notifications.fetchNotifications());
+            }
+
+            fetchNotifications();
+
+            const interval = setInterval(async () => {
+                await fetchNotifications();
+            }, 1000 * 60);
+
+            return () => clearInterval(interval);
+        }
+    }, [isLoggedIn, dispatch]);
+
     return (
         <div className="App">
             {(isLoggedIn && location.pathname !== '/') &&

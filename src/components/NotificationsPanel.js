@@ -1,7 +1,15 @@
 import React from 'react';
 import {Transition} from '@headlessui/react';
 
+import NotificationItem from './NotificationItem';
+import {useSelector} from 'react-redux';
+
 function NotificationsPanel({notificationsPanel, toggleNotificationsPanel}) {
+    const {notifications} = useSelector(state => state.notifications);
+
+    const filteredNotifications = [...notifications].filter(notification => typeof notification._id !== 'undefined');
+    const sortedNotifications = filteredNotifications.sort((a, b) => Number(new Date(b.created_at)) - Number(new Date(a.created_at)));
+
     return (
         <React.Fragment>
             <div className="relative inline-flex mr-4">
@@ -15,11 +23,12 @@ function NotificationsPanel({notificationsPanel, toggleNotificationsPanel}) {
                               d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                     </svg>
                 </button>
+                {notifications.length > 0 &&
                 <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
                     <span
                         className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"/>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"/>
-                </span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"/>
+                </span>}
             </div>
             <Transition
                 show={notificationsPanel}
@@ -80,8 +89,20 @@ function NotificationsPanel({notificationsPanel, toggleNotificationsPanel}) {
                                         </div>
                                         <div className="mt-6 relative flex-1 px-4 sm:px-6">
                                             <div className="absolute inset-0 px-4 sm:px-6">
-                                                <div className="h-full border-2 border-dashed border-gray-200"
-                                                     aria-hidden="true"/>
+                                                <div className="h-full space-y-6">
+                                                    {sortedNotifications.length > 0 &&
+                                                    sortedNotifications.map(({_id, type, title, message, created_at}, index) =>
+                                                        <NotificationItem
+                                                            key={index}
+                                                            id={_id}
+                                                            type={type}
+                                                            title={title}
+                                                            message={message}
+                                                            created_at={created_at}
+                                                            panel={true}
+                                                        />
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

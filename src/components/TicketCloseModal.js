@@ -10,14 +10,14 @@ function TicketCloseModal({toggleCloseModal}) {
         dispatch(actions.tickets.closeTicket())
             .then(status => {
                 dispatch(actions.notifications.create({
-                    status: "success",
+                    type: "success",
                     title: "Ticket closed",
                     message: status
                 }));
                 toggleCloseModal();
             }).catch(err => {
             dispatch(actions.notifications.create({
-                status: "error",
+                type: "error",
                 title: "Error",
                 message: err
             }));
