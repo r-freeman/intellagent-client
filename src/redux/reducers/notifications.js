@@ -23,7 +23,7 @@ const notifications = (state = initialState, action) => {
         case DISMISS_NOTIFICATION:
             return {...state, localNotifications: action.payload};
         case FETCH_NOTIFICATIONS_BEGIN:
-            return {...state, notifications: [], isFetchingNotifications: true};
+            return {...state, isFetchingNotifications: true};
         case FETCH_NOTIFICATIONS_SUCCESS:
             return {...state, notifications: action.payload, isFetchingNotifications: false};
         case FETCH_NOTIFICATIONS_FAILURE:
